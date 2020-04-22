@@ -13,6 +13,7 @@
         h2   {color: rgb(94, 124, 187)}
         p    {color: rgb(0, 1, 56);}
         .estilo1 {font-family: sans-serif; text-align: right}
+        .estilo2 {font-family: sans-serif; text-align: left}
         div.gallery {           /* estas lineas se crean para poder ubicar la imagen en la misma linea de texto */
                 margin: 5px;
                 border: 1px solid #ccc;
@@ -20,38 +21,11 @@
                 width: 180px;}
 
         div.gallery:hover {
-                border: 1px solid #777; }
+                border: 2px solid #777; }
 
         div.gallery img {
                 width: 100%;
                 height: auto;}
-        /* Create three unequal columns that floats next to each other */
-        .column {
-                float: left;
-                padding: 10px;}
-
-        /* Left and right column */
-        .column.side {
-                 width: 25%;}
-
-        /* Middle column */
-        .column.middle {
-                width: 75%;}
-        /* Clear floats after the columns */
-        .row:after {
-                content: "";
-                display: table;
-                clear: both;}
-        /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-        @media screen and (max-width: 600px) {
-        .column.side, .column.middle {
-         width: 100%;}
-            }
-        body {
-            margin: 0;}
-
-            
-
 </style>
 </head>                                 <!-- cierra cabecera del documento -->
 <body>                                  <!-- abre cuerpo del documento     -->
@@ -64,21 +38,18 @@
     </div>
   <h2><i> Currículum Vitae - Pere Antoni Matías Florit </i></h2> 
   <h1>Graduado en Geografía -  Máster en TIG</h1>
-</div> <br><br><br><br><br><br><br><br><br>
-<div class="row">
-    <div class="column middle">
-    <h2>CONTENIDO</h2>
-    <p>df dsf fsdf sddfdsfdsf fdsf  lskjahf dfhgds fdshdhgjkdf jsdfhajkasdfh  fjhsdjfh  fdsfhjsdfas fasdhfas fasdjhfasfh fsdajfhasd fasdhfsadjhkf asdfjasdjkf asdfhksadf </p>    
-</div>
-
-    <div class="column side">
+  <div class="estilo1">
     <h2>Datos de contacto</h2>
     <p>Pere Antoni Matías Florit <br>
         Lugar de nacimiento: <br>
         Búger, Illes Balears.<br>
         <a href="https://www.linkedin.com/in/pereantoni/"> Pagina de Linkedin </a> <br>
-        
-    </p>
-    </div>
+</div> <br><br>
+
+<div class="estilo2">
+<h2>CONTENIDO</h2>
+<p>
+df dsf fsdf sddfdsfdsf fdsf  lskjahf dfhgds fdshdhgjkdf jsdfhajkasdfh  fjhsdjfh  fdsfhjsdfas fasdhfas fasdjhfasfh fsdajfhasd fasdhfsadjhkf asdfjasdjkf asdfhksadf </p>    
+</p>  
 </div>
 </body>
