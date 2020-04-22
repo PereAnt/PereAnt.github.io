@@ -13,13 +13,70 @@
         h2   {color: rgb(94, 124, 187)}
         p    {color: rgb(0, 1, 56);}
         .estilo1 {font-family: sans-serif; text-align: right}
+        div.gallery {           /* estas lineas se crean para poder ubicar la imagen en la misma linea de texto */
+                margin: 5px;
+                border: 1px solid #ccc;
+                float: left;
+                width: 180px;}
+
+        div.gallery:hover {
+                border: 1px solid #777; }
+
+        div.gallery img {
+                width: 100%;
+                height: auto;}
+        /* Create three unequal columns that floats next to each other */
+        .column {
+                float: left;
+                padding: 10px;}
+
+        /* Left and right column */
+        .column.side {
+                 width: 25%;}
+
+        /* Middle column */
+        .column.middle {
+                width: 75%;}
+        /* Clear floats after the columns */
+        .row:after {
+                content: "";
+                display: table;
+                clear: both;}
+        /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+        .column.side, .column.middle {
+         width: 100%;}
+            }
+            
+
 </style>
 </head>                                 <!-- cierra cabecera del documento -->
 <body>                                  <!-- abre cuerpo del documento     -->
   <!-- contenidos del cuerpo del documento -->
 <div class="estilo1">
-  <h2> Currículum Vitae - Pere Antoni Matías Florit</h2>
+    <div class="gallery">
+        <a target="_blank" href="img_5terre.jpg">
+          <img src="IMAGES/fotoCV3.jpg" alt="FotoCV_PereA" width="600" height="400">
+        </a>
+    </div>
+  <h2><i> Currículum Vitae - Pere Antoni Matías Florit </i></h2> 
   <h1>Graduado en Geografía -  Máster en TIG</h1>
+</div> <br><br><br><br><br><br><br><br>
+<div class="row">
+    <div class="column middle">
+    <h2>CONTENIDO</h2>
+    <p>df dsf fsdf sddfdsfdsf fdsf  lskjahf dfhgds fdshdhgjkdf jsdfhajkasdfh  fjhsdjfh  fdsfhjsdfas fasdhfas fasdjhfasfh fsdajfhasd fasdhfsadjhkf asdfjasdjkf asdfhksadf </p>
+    
+    </div>
+
+    <div class="column side">
+    <h2>Datos de contacto</h2>
+    <p>Pere Antoni Matías Florit <br>
+        C/ de Sa Carretera 44, 07311, <br>
+        Búger, Illes Balears. <br>
+        Móvil: 663590912 <br>
+        Correo electrónico: <br>
+        pereantoni.matias@gmail.com</p>
+    </div>
 </div>
-  <p class="">Hola, funciona?</p>
 </body>
