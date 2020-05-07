@@ -67,8 +67,11 @@ var capas = L.control.layers(   // variable con control de capas
   {collapsed:true});            // control NO desplegado
 capas.addTo(mapa1);           // añadimos control de capas al mapa
 
-var escala = L.control.scale()
+var escala = L.control.scale({
+  imperial: false,
+  position: 'topleft'})
  escala.addTo(mapa1);
+ 
 
 //GeoJSON 
 
