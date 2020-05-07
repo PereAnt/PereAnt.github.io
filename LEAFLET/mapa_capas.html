@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Mapa capas</title>
+<meta charset="utf-8" />
+
+
+<!-- enlace a CSS de Leaflet v. 1.6.0 en la cabecera -->
+<link rel="stylesheet" href="codigo/leaflet.css"/>
+
+<!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
+<script src="codigo/leaflet.js">
+
+</script>
+</head>
+
+<body>
+<h1>Mapa con capas</h1>
+
+<!--bloque donde aparecerá el mapa que creamos-->
+<div id="bloque_mapa" style="width: 700px; height: 500px;"></div>
+<script>
+// definimos el mapa como una variable y le ajustamos dónde lo queremos ver
+    var mapa1 = L.map('bloque_mapa').setView([40, 3], 7);
+
+// a partir de aquí añadimos las capas
+
+var stamen_tms = L.tileLayer(
+  'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', { // URL con tiles
+      // texto de atribución en html - IMPORTANTE NO OLVIDAR
+      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      maxZoom: 20  // zoom máximo
+      });
+  stamen_tms.addTo(mapa1);
+// añadir WMS: ejemplo PNOA
+
+var PNOA = L.tileLayer.wms('http://www.idee.es/wms/PNOA/PNOA?', { //URL WMS
+layers: 'PNOA', // capa del WMS
+format: 'image/png', // tipo de formato
+transparent: true, // activa capa alfa/transparente
+attribution: ' <i>Imagen PNOA</i> &copy; IGN'
+});
+PNOA.addTo(mapa1); // añadir capa al mapa
+
+//Openstreetmaps
+// añadir TM de OpenStreetMap render Mapnik
+var OSM_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+  OSM_mapnik.addTo(mapa1);
+//Añadiendo controles
+
+//La capas base
+var baseMaps = {                  // variable con apartado de mapas base
+    "OpenStreetMap": OSM_mapnik,  // elemento a incluir y descripción
+    "Stamen": stamen_tms,
+    };
+var overlayMaps = {           // apartado de capas
+    "Ortofoto PNOA": PNOA,       // elemento a incluir y descripción
+    };
+//Los controles
+var capas = L.control.layers(   // variable con control de capas
+  baseMaps,                     // añadiendo capas base
+  overlayMaps,                  // añadiendo capas
+  {collapsed:true});            // control NO desplegado
+capas.addTo(mapa1);           // añadimos control de capas al mapa
+
+var escala = L.control.scale()
+ escala.addTo(mapa1);
+
+//GeoJSON 
+
+
+</script>
+
+<!-- FIN de bloque dónde aparecerá el mapa -->
+
+
+
+
+</body>
