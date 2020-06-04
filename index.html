@@ -4,42 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="w3.css"> <!--Es una librería gratis para usar estilos, y está tanto online, como la opción de descargar-->
-<!--creamos sentencia única para el estilo-->
+<!--creamos sentencia única para los estilos que se van a usar en el código-->
 <style>
-html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
+html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif} 
 </style> 
 <body class="w3-light-gray">
 
-<!-- Empieza el diseño de la página -->
+  <!-- Empieza el diseño de la página --> 
 
-  <!--Esta linea permite "seccionar" la pagina-->
+  <!--Esta linea permite "seccionar" la pagina, permite que haya límetes en las columnas-->
   <div class="w3-row-padding"> 
   
     <!-- Aqui se empieza a definir la columna de la izquierda-->
-    <div class="w3-third">
+    <div class="w3-third"> <!--esto define una columna que ocupa 1/3 de la página, así la relación de aspecto siempre se mantiene-->
     
-      <div class="w3-white w3-text-grey w3-card-4">
+      <div class="w3-white w3-text-grey w3-card-4"> <!--colores de fondo, del texto, efecto de sombra-->
         <div class="w3-display-container">
-          <img src="IMAGES/fotoCV3.jpg" style="width:100%" alt="Avatar">
-          <div class="w3-container w3-text-black">
+          <img src="IMAGES/fotoCV3.jpg" style="width:100%" alt="Avatar"> <!--foto del curriculum-->
+          <div class="w3-container w3-text-black" style="text-shadow:1px 1px 0 #444"> <!--espacio y color para mi nombre, con el añaido de sombras y negrita-->
             <h2>Pere Antoni <br> Matías Florit</h2>
           </div>
         </div>
-        <div class="w3-container">
-          <p><i class="w3-large w3-text-teal"></i>Geógrafo</p>
+        <div class="w3-container"> <!--esta función crea una especie de sección, se crea el emplazamiento de la información personal-->
+          <p><i class="w3-large w3-text-teal"></i>Geógrafo</p> <!--siempre se define antes como será el texto-->
           <p><i class="w3-large w3-text-teal"></i>Búger, Illes Balears, 07311.</p>
-          <p><i class="w3-large w3-text-teal"></i><a href="#contacto">Contacto</a></p>
+          <p><i class="w3-large w3-text-teal"></i><a href="#contacto">Contacto</a></p> <!--introduzco un enlace al final de la página en el que se me puede contactar-->
           
-          <p><i class="w3-large w3-text-teal"></i><a href="https://www.linkedin.com/in/pereantoni/" target="_blank">Linkedin</a></p>
+          <p><i class="w3-large w3-text-teal"></i><a href="https://www.linkedin.com/in/pereantoni/" target="_blank">Linkedin</a></p> <!--Enlace directo a mi página de Linkedin-->
           <hr>
-
+          <!--sección de habilidades-->
           <p class="w3-large w3-text-light-blue"><b>Habilidades</b></p>
           <p>Programas de información geográfica: <i>ArcMap, QGis, Erdas,...</i></p>
           <p>Manejo básico R</p>
           <p>Manejo básico de lenguajes de programación: <i>Python, HTML.</i></p>
           <p>Tecnología LiDar</p>
           <br>
-
+          <!--sección de los idiomas-->
           <p class="w3-large w3-text-light-blue"><b>Idiomas</b></p>
           <p>Catalán: Nativo</p>
           <p>Castellano: Bilingüe</p>
@@ -51,83 +51,85 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
     <!-- Ya hemos acabado la columna de la izquierda -->
     </div>
 
-    <!-- Ahora empezamos con la columna de la derecha, donde pondremos el contenido principal -->
-    <div class="w3-twothird">
-    
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-light-blue w3-padding-16"><i class="w3-margin-right w3-xxlarge"></i>Perfil Professional</h2>
-        <div class="w3-container">
-          <h5 class="w3-opacity "><b>Front End Developer / w3schools.com</b></h5>
-          <h6 class="w3-text-light-blue">Jan 2015 - Current</span></h6>
-          <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+    <!-- Ahora empezamos con la columna de la derecha, donde pondremos el contenido principal del currículum-->
+    <div class="w3-twothird">  <!--esto define una columna que ocupa 2/3 de la página-->
+      <!--empieza la parte donde se pone la información profesional-->
+      <div class="w3-container w3-card w3-white w3-margin-bottom"> <!--se crea la "caja" y su estilo. "magin-bottom" permite crear el aspecto de caja-->
+        <h2 class="w3-text-light-blue w3-padding-16"><i class="w3-margin-right w3-xxlarge"></i>Perfil Profesional</h2> <!--alineación y letras mayúsculas-->
+        <div class="w3-container"> 
+          <!--la opción opacity permite dar el tono "grisaceo"-->
+          <h5 class="w3-opacity "><b>Prácticas laborales / Sistema de Observación Costero de las Illes Balears <a href="http://socib.es/index.php?seccion=textes&id_textotextes=resumenEjecutivo&language=es_ES" target="_blank"> (SOCIB)</a> </b></h5> <!--incluyo enlace al sitio-->
+          <h6 class="w3-text-light-blue">Marzo 2017 - Mayo 2017 / Octubre 2017 - Noviembre 2017</span></h6>
+          <p>Videomonitorización <i>(Sirena)</i> 
+            <br>Análisis granulométrico <i>(Malvern Mastersizer 2000)</i> 
+            <br>Creación y edición de información geográfica (Batimetrías)
+            <br>Participación en campaña MORFINTRA</p>
           <hr>
         </div>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Web Developer / something.com</b></h5>
-          <h6 class="w3-text-light-blue">Mar 2012 - Dec 2014</h6>
-          <p>Consectetur adipisicing elit. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+          <h5 class="w3-opacity"><b>Técnico becario / <a href="https://www.estudi-cat.com/es/qui-som/" target="_blank"> Estudi Cat</a></b></h5>
+          <h6 class="w3-text-light-blue">Octubre 2017 - Febrero 2018</h6>
+          <p>Digitalización dirigida al control catastral
+            <br>Regulariación catastral de terrenos a través de utilización de dispositivos GNSS
+          </p>
           <hr>
-        </div>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>Graphic Designer / designsomething.com</b></h5>
-          <h6 class="w3-text-light-blue">Jun 2010 - Mar 2012</h6>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
         </div>
       </div>
-
+      <!--Empieza la parte donde va la información de formación-->
       <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-light-blue w3-padding-16">Formación</h2>
+        <h2 class="w3-text-light-blue w3-padding-16"><i class="w3-margin-right w3-xxlarge"></i>Formación</h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-          <p>Web Development! All I need to know in one place</p>
+          <h5 class="w3-opacity"><b>Máster universitario en tecnologías de la Información Geográfica para la Ordenación del Territorio: Sistemas de Información Geográfica y Teledetección</b></h5>
+          <h6 class="w3-text-teal">2019 - 2020</h6> <!--la opción text teal nos permite dar este color verde turquesa-->
+          <p>Universidad de Zaragoza</p>
           <hr>
         </div>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>London Business School</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-          <p>Master Degree</p>
+          <h5 class="w3-opacity"><b>Grado en Geografía (7.79)</b></h5>
+          <h6 class="w3-text-teal">2013 - 2019</h6>
+          <p>Universitat de les Illes Balears</p>
           <hr>
         </div>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>School of Coding</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>
-          <p>Bachelor Degree</p><br>
+          <h5 class="w3-opacity"><b>Curso online en SIG aplicados a estudios del litoral y el medio marino</b></h5>
+          <h6 class="w3-text-teal">2017 - 2018</h6>
+          <p>Instituto Superior del Medio Ambiente</p><br>
         </div>
       </div>
 
-    <!-- End Right Column -->
+      <!-- Se cirra la parte de la columna derecha-->
     </div>
     
-  <!-- End Grid -->
+    <!-- finaliza el grid para la dispoción de las columnas -->
   </div>
   
-  <!-- End Page Container -->
-</div>
-<!-- Aqui preparamos la sección de contacto de la página -->
-<div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contacto"> <!--el id para enlazar con el botón-->
-  <h3 class="w3-center">Contacto</h3>
-<!--punto importante porque permite que el email escrito llegue a nuestro correo personal-->
-  <form action="pereantoni.matias@gmail.com" method="post" enctype="text/plain"> 
-    <div class="w3-section">
-      <label>Nombre</label>
-      <input class="w3-input w3-border" type="text" required name="Name">
+  <!-- Aqui preparamos la sección de contacto de la página, que es una manera de poner tu contacto sin ofrecer directamente tu dirección de correo -->
+  <div class="w3-rest">
+    <div class="w3-container w3-card w3-white w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"> <!--esta linea para definir el "cuadrado" de la función de contacto-->
+      <div class="w3-padding-large w3-padding-32" id="contacto"> <!--el id para enlazar con el "botón" en la sección de información personal-->
+      <h3 class="w3-center">Contacto</h3>
+      <!--punto importante porque permite que el email escrito llegue a nuestro correo personal-->
+      <form action="mailto: pereantoni.matias@gmail.com" method="post" enctype="text/plain"> 
+        <div class="w3-section">
+          <label>Nombre</label>
+          <input class="w3-input w3-border" type="text">
+        </div>
+        <div class="w3-section">
+          <label>Email</label>
+          <input class="w3-input w3-border" type="text">
+        </div>
+        <div class="w3-section">
+          <label>Mensaje</label>
+          <input class="w3-input w3-border" type="text">
+        </div>
+        <button type="submit" class="w3-button w3-block w3-dark-grey">Enviar</button>  <!--esta linea es donde se crea el botón de enviar mensaje y ejecuta la action creada en la linea 112-->
+      </form>
     </div>
-    <div class="w3-section">
-      <label>Email</label>
-      <input class="w3-input w3-border" type="text" required name="Email">
-    </div>
-    <div class="w3-section">
-      <label>Mensaje</label>
-      <input class="w3-input w3-border" required name="Message">
-    </div>
-    <button type="submit" class="w3-button w3-block w3-dark-grey">Enviar</button>
-  </form>
-
-
-<footer class="w3-container w3-light-blue w3-center w3-margin-top"><br>
-  <p><i>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</i></a></p> <br>
-</footer>
+  </div>
+  <!--a partir de aquí creamos un recuadro donde se da crédito a w3schools.com por el CSS-->
+  <footer class="w3-container w3-light-blue w3-center w3-margin-top w3-margin-right w3-margin-left"><br>
+    <p><i>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</i></a></p> <br>
+  </footer>
 
 </body>
 </html>
