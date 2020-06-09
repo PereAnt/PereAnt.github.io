@@ -19,11 +19,12 @@
 
 
         <!--bloque donde aparecerá el mapa que creamos-->
-        <div id="bloque_mapa" style="width: 100%; height: 550px;"></div>
+        <div id="bloque_mapa" style="width: 100%; height: 500px;"></div>
         <script>
             // definimos el mapa como una variable y le ajustamos dónde lo queremos ver
-            var mi_mapa = L.map('bloque_mapa').setView([39.5, 3], 8);
-    
+            var mi_mapa = L.map('bloque_mapa').setView([39.758872, 2.984116], 8);
+            
+            
             // añadimos mapa de fondo
             L.tileLayer(
             // dirección de las tiles
@@ -46,13 +47,13 @@
             }).addTo(mi_mapa); // se añade al mapa
     
    
-            var stamen_tms = L.tileLayer(
-                'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', { // URL con tiles
-                // texto de atribución en html que es importante añadir siempre que se usa alguna cosa de OpenStreet maps, o cualquiera otra bajo licencia creative commons
-                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-                maxZoom: 20  // zoom máximo
-                });
-            stamen_tms.addTo(mi_mapa);
+            //var stamen_tms = L.tileLayer(
+               // 'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', { // URL con tiles
+                // texto de atribución en html que es importante añadir siempre q
+               // attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+               // maxZoom: 20  // zoom máximo
+               // });
+           // stamen_tms.addTo(mi_mapa);
 
         </script>
 
