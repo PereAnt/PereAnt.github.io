@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+<head>
 <title>CVitae Pere Antoni Matías Florit - 2020</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="w3.css"> <!--Es una librería gratis para usar estilos, y está tanto online, como la opción de descargar-->
+<!-- enlace a CSS de Leaflet v. 1.6.0 en la cabecera -->
+<link rel="stylesheet" href="LEAFLET/codigo/leaflet.css"/>
+
+<!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
+<script src="LEAFLET/codigo/leaflet.js"> </script>
+
+</head>
+
 <!--creamos sentencia única para los estilos que se van a usar en el código-->
 <style>
 html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif} 
@@ -27,7 +36,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
         </div>
         <div class="w3-container"> <!--esta función crea una especie de sección, se crea el emplazamiento de la información personal-->
           <p><i class="w3-large w3-text-teal"></i>Geógrafo</p> <!--siempre se define antes como será el texto-->
-          <p><i class="w3-large w3-text-teal"></i>Búger, Illes Balears, 07311.</p>
+          <p><i class="w3-large w3-text-teal"></i><a href="#localizacion"> Búger, Illes Balears, 07311.</a></p>
           <p><i class="w3-large w3-text-teal"></i><a href="#contacto">Contacto</a></p> <!--introduzco un enlace al final de la página en el que se me puede contactar-->
           
           <p><i class="w3-large w3-text-teal"></i><a href="https://www.linkedin.com/in/pereantoni/" target="_blank">Linkedin</a></p> <!--Enlace directo a mi página de Linkedin-->
@@ -103,10 +112,19 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
     <!-- finaliza el grid para la dispoción de las columnas -->
   </div>
   
+
+  <div class="w3-container w3-card w3-white w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"> <!--esta linea para definir el cuadro para el mapa-->
+    <div class="w3-padding-lage" id="localizacion"> <!--el id para enlazar la dirección con el mapa-->
+      <h3 class="w3-center">Mi origen</h3> <!--Título de la sección-->
+      <!--se añade un iframe para "enlazar" el .html donde tengo el mapa y que se puede visualizar en este .html-->
+      <iframe src="LEAFLET/mapa.html" height="570px" width="100%" style="border:none"></iframe> </iframe>
+    </div>
+  </div>
+  
+  
   <!-- Aqui preparamos la sección de contacto de la página, que es una manera de poner tu contacto sin ofrecer directamente tu dirección de correo -->
-  <div class="w3-rest">
-    <div class="w3-container w3-card w3-white w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"> <!--esta linea para definir el "cuadrado" de la función de contacto-->
-      <div class="w3-padding-large w3-padding-32" id="contacto"> <!--el id para enlazar con el "botón" en la sección de información personal-->
+  <div class="w3-container w3-card w3-white w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"> <!--esta linea para definir el "cuadrado" de la función de contacto-->
+    <div class="w3-padding-large" id="contacto"> <!--el id para enlazar con el "botón" en la sección de información personal-->
       <h3 class="w3-center">Contacto</h3>
       <!--punto importante porque permite que el email escrito llegue a nuestro correo personal-->
       <form action="mailto: pereantoni.matias@gmail.com" method="post" enctype="text/plain"> 
@@ -126,6 +144,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
       </form>
     </div>
   </div>
+  
   <!--a partir de aquí creamos un recuadro donde se da crédito a w3schools.com por el CSS-->
   <footer class="w3-container w3-light-blue w3-center w3-margin-top w3-margin-right w3-margin-left"><br>
     <p><i>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</i></a></p> <br>
