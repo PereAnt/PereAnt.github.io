@@ -10,9 +10,10 @@
         <link rel="stylesheet" href="LEAFLET/codigo/leaflet.css"/>
 
         <!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
-        <script src="LEAFLET/codigo/leaflet.js">
-
-        </script>   
+        <script src="LEAFLET/codigo/leaflet.js"></script> 
+        
+        <!-- enlace a la capa GeoJson de municipios-->
+        <script src="LAYERS/municipios_poblacion.js"></script>
         
         <style>
             body {
@@ -30,7 +31,7 @@
 
     <body>
         <div class= "w3-panel w3-light-gray w3-margin-left w3-margin-right"> 
-            <h1 class="w3-center w3-wide w3-xlarge w3-text" style="text-shadow:1px 1px 0 #444">Visor</h1>
+            <h1 class="w3-center w3-wide w3-xlarge w3-text" style="text-shadow:1px 1px 0 #444">Visor creado por Pere A Matías Florit </h1>
         </div>
         <div id="mapa" style="width: 98%; height: 90%" class="w3-container w3-card w3-white w3-margin-left w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"></div>
         <script>
@@ -58,10 +59,37 @@
                 transparent: true,
                 attribution: '<i> Topográfico escala 5000 </i> &copy; SITIBSA ' 
             });
-            topografico_5000.addTo(visor);
             
+
+            //cargo un archivo GeoJson con la población de los municipios de mallorca
+            function Color(p) {            //antes de nada definimos con un función un color para cada rango de numero de habitantes
+                return p > 60000 ? '#99000d' : //la escala de color la he "creado" en la página Color Brewer
+                    p > 30000  ? '#cb181d' :  
+                    p > 25000  ? '#ef3b2c' :
+                    p > 20000  ? '#fb6a4a' :
+                    p > 10000  ? '#fc9272' :
+                    p > 5000  ? '#fcbba1' :
+                    p > 1000   ? '#fee0d2' :
+                    p < 1000   ? '#fff5f0' :
+                                '#000000';
+            };
+            //ahora definimos un estilo y especificamos que aplica la función anterior al campo población de la capa GeoJson
+            function estilo (feature) {
+                return {
+                    fillColor: Color(feature.properties.MAX_poblacion),  //hacemos la llamada a la función anterior
+                    weight: 2,                                           //aunque ponga MAX_población son datos "normales" de población
+                    opacity: 1,
+                    color: "gray",
+                    fillOpacity: 1
+                };
+            }
+            var municipios = L.geoJson(municipios, {style: estilo});  //ahora cuando creamos la variable hacemos la llamada al estilo creado
+                                                                        //así representamos datos de población
+            
+
+
             // añadimos marcadores de algunos asentamientos urbanos con un pequeño texto
-            var buger = L.marker([39.76, 2.98]).bindPopup('Esto es Búger, mi pueblo.'),
+            var buger = L.marker([39.76, 2.98]).bindPopup('Esto es Búger, mi pueblo.'),  //la segunda parte de estas lineas son el texto que aparece al clicar el marcador
                 sapobla = L.marker([39.77, 3.02]).bindPopup('Esto es Sa Pobla, principal zona agrícola.'),
                 palma = L.marker([39.57, 2.65]).bindPopup('Esto es Palma, la capital.'),
                 manacor = L.marker([39.57, 3.21]).bindPopup('Esto es Manacor.'),
@@ -69,20 +97,22 @@
 
             var pueblos = L.layerGroup([sapobla, buger, palma, manacor, alcudia]); //creo una unica capa con los marcadores para añadirlo al desplegable a continuación
             
-             // marcador en esas coordenadas
+             
             
             
         
         //Añadiendo controles
 
       //La capas base
-            var baseMaps = {                  // variable con apartado de mapas base
-            "OpenStreetMap": OSM_mapnik,  // añadimos el mapa base         
+            var baseMaps = {                  
+            "OpenStreetMap": OSM_mapnik,  // Defino mi mapa base         
             };
-            var overlayMaps = {           // apartado de capas
+            var overlayMaps = {           // A partir de aquí añado las diferentes capas del mapa
             "Ortofoto PNOA": PNOA, 
-            "Topográfico 5000": topografico_5000, 
-            "Pueblos": pueblos,     // incluimos las capas 
+            "Topográfico 5000": topografico_5000, //el servicio WMS de Baleares falla mucho
+            "Pueblos": pueblos,     // la capa "grupo" de pueblos 
+            "Población Municipios Mallorca": municipios, // la capa GeoJson
+            
             };
             //Los controles
             var capas = L.control.layers(   // variable con control de capas
@@ -91,11 +121,13 @@
             {collapsed:true});            // control NO desplegado
             capas.addTo(visor);           // añadimos control de capas al mapa
 
+            //añadimos una escala y la situamos en la esquina izquierda
             var escala = L.control.scale({
             imperial: false,
             position: 'topleft'})
             escala.addTo(visor);
-        
+
+            
         
         </script>
         
