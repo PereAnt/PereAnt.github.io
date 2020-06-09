@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    
+    
+    <head>
+        <title>Visor complejo - Práctica visualización online Máster TIG - Pere Antoni</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href= "w3.css">
+        <!-- enlace a CSS de Leaflet v. 1.6.0 en la cabecera -->
+        <link rel="stylesheet" href="LEAFLET/codigo/leaflet.css"/>
+
+        <!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
+        <script src="LEAFLET/codigo/leaflet.js">
+
+        </script>   
+        
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            html, body, map {
+                height: 100%;
+                width: 100%;
+                font: 10pt "sans-serif";
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class= "w3-panel w3-light-gray w3-margin-left w3-margin-right"> 
+            <h1 class="w3-center w3-wide w3-xlarge w3-text" style="text-shadow:1px 1px 0 #444">Visor</h1>
+        </div>
+        <div id="mapa" style="width: 98%; height: 90%" class="w3-container w3-card w3-white w3-margin-left w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"></div>
+        <script>
+            // definimos el mapa como una variable y le ajustamos dónde lo queremos ver
+            var visor = L.map('mapa').setView([39.758872, 2.984116], 8);
+            
+            var OSM_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+             OSM_mapnik.addTo(visor);
+
+            // codigo para añadir PNOA
+
+            var PNOA = L.tileLayer.wms('http://www.idee.es/wms/PNOA/PNOA?', { //URL WMS
+            layers: 'PNOA', // capa del WMS
+            format: 'image/png', // tipo de formato
+            transparent: true, // activa capa alfa/transparente
+            attribution: ' <i>Imagen PNOA</i> &copy; IGN'
+            });
+            PNOA.addTo(visor); // añadir capa al mapa
+
+            var topografico_5000 = L.tileLayer.wms('http://ideib.caib.es/pub_ideib/public/TOPOGRAFIC_5M_IB95/MapServer/WMSServer', {
+                format: 'image/png',
+                transparent: true,
+                attribution: '<i> Topográfico escala 5000 </i> &copy; SITIBSA ' 
+            });
+            topografico_5000.addTo(visor);
+            
+            // añadimos marcadores de algunos asentamientos urbanos con un pequeño texto
+            var buger = L.marker([39.76, 2.98]).bindPopup('Esto es Búger, mi pueblo.'),
+                sapobla = L.marker([39.77, 3.02]).bindPopup('Esto es Sa Pobla, principal zona agrícola.'),
+                palma = L.marker([39.57, 2.65]).bindPopup('Esto es Palma, la capital.'),
+                manacor = L.marker([39.57, 3.21]).bindPopup('Esto es Manacor.'),
+                alcudia = L.marker([39.84, 3.13]).bindPopup('Esto es Alcúdia');
+
+            var pueblos = L.layerGroup([sapobla, buger, palma, manacor, alcudia]); //creo una unica capa con los marcadores para añadirlo al desplegable a continuación
+            
+             // marcador en esas coordenadas
+            
+            
+        
+        //Añadiendo controles
+
+      //La capas base
+            var baseMaps = {                  // variable con apartado de mapas base
+            "OpenStreetMap": OSM_mapnik,  // añadimos el mapa base         
+            };
+            var overlayMaps = {           // apartado de capas
+            "Ortofoto PNOA": PNOA, 
+            "Topográfico 5000": topografico_5000, 
+            "Pueblos": pueblos,     // incluimos las capas 
+            };
+            //Los controles
+            var capas = L.control.layers(   // variable con control de capas
+            baseMaps,                     // añadiendo capas base
+            overlayMaps,                  // añadiendo capas
+            {collapsed:true});            // control NO desplegado
+            capas.addTo(visor);           // añadimos control de capas al mapa
+
+            var escala = L.control.scale({
+            imperial: false,
+            position: 'topleft'})
+            escala.addTo(visor);
+        
+        
+        </script>
+        
+    
+
+    </body>
+
+
+
+
+</html>
