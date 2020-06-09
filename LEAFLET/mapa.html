@@ -1,84 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
-<head>
-<title>Mi primer mapa web con Leaflet</title>
-<meta charset="utf-8" />
+    <head>
+        <title>Mapa para la página de curriculum</title>
+        <meta charset="utf-8" />
 
 
-<!-- enlace a CSS de Leaflet v. 1.6.0 en la cabecera -->
-<link rel="stylesheet" href="codigo/leaflet.css"/>
+        <!-- enlace a CSS de Leaflet v. 1.6.0 en la cabecera -->
+        <link rel="stylesheet" href="codigo/leaflet.css"/>
 
-<!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
-<script src="codigo/leaflet.js">
+            <!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
+        <script src="codigo/leaflet.js">
 
-</script>
-</head>
+        </script>
+    </head>
 
-<body>
-<h1>Mapa de prueba</h1>
-<p>Texto de párrafo</p>
+    <body>
 
-<!--bloque donde aparecerá el mapa que creamos-->
-<div id="bloque_mapa" style="width: 700px; height: 500px;"></div>
-<script>
-    // definimos el mapa como una variable y le ajustamos dónde lo queremos ver
-    var mi_mapa = L.map('bloque_mapa').setView([40, 3], 7);
+
+        <!--bloque donde aparecerá el mapa que creamos-->
+        <div id="bloque_mapa" style="width: 100%; height: 550px;"></div>
+        <script>
+            // definimos el mapa como una variable y le ajustamos dónde lo queremos ver
+            var mi_mapa = L.map('bloque_mapa').setView([39.5, 3], 8);
     
-    // añadimos mapa de fondo
-    L.tileLayer(
-    // dirección de las tiles
-    'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
-    // propiedades
-    { maxZoom: 10, // zoom máximo 10
-    // Líneas de atribución
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' + '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-    id: 'mapbox.streets'
-    }).addTo(mi_mapa);
-    // añadimos punto (marcador)
-    var marker = L.marker([39.7, 2.95]); // marcador en esas coordenadas
-    marker.addTo(mi_mapa); // se añade al mapa
-    // añadimos círculo
-    var circle = L.circle( // variable círculo en esas coordenadas
-    [39.7, 2.95], { // coordenadas del centro
-        color: 'red', // estilo color
-    fillColor: '#f03', // color de relleno
-    fillOpacity: 0.5, // opacidad del relleno
-    radius: 30000 // radio: 300Km
-    }).addTo(mi_mapa); // se añade al mapa (otro modo)
+            // añadimos mapa de fondo
+            L.tileLayer(
+            // dirección de las tiles
+            'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+            // propiedades
+            { maxZoom: 10, // zoom máximo 10
+            // Líneas de atribución
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' + '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            id: 'mapbox.streets'
+            }).addTo(mi_mapa);
+            // añadimos punto (marcador)
+            var marker = L.marker([39.758872, 2.984116]); // marcador en esas coordenadas
+            marker.addTo(mi_mapa); // se añade al mapa que ta hemos creado
+            // añadimos círculo
+            var circle = L.circle( // variable círculo en esas coordenadas
+            [39.758872, 2.984116], { // coordenadas del centro
+                color: 'red', // estilo color
+            fillOpacity: 0, // quiero que sea transparente y le doy 0 de opacidad
+            radius: 10000 // el radio del circulo que se añade
+            }).addTo(mi_mapa); // se añade al mapa
     
-    // añadimos polígono
-    var polygon = L.polygon([ // variable polígono
-    
-    [40, 2.5], // coordenadas de los vértices
-    [40, 3.5],
-    [39, 3.5],
-    [39, 2.5]
-    ],
-    {color: 'green'});
-    
-    polygon.addTo(mi_mapa) // se añade al mapa
    
-var stamen_tms = L.tileLayer(
-  'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', { // URL con tiles
-      // texto de atribución en html - IMPORTANTE NO OLVIDAR
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      maxZoom: 20  // zoom máximo
-      });
-  stamen_tms.addTo(mi_mapa);
-// añadir WMS: ejemplo PNOA
+            var stamen_tms = L.tileLayer(
+                'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', { // URL con tiles
+                // texto de atribución en html que es importante añadir siempre que se usa alguna cosa de OpenStreet maps, o cualquiera otra bajo licencia creative commons
+                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+                maxZoom: 20  // zoom máximo
+                });
+            stamen_tms.addTo(mi_mapa);
 
-var PNOA = L.tileLayer.wms('http://www.idee.es/wms/PNOA/PNOA?', { //URL WMS
-layers: 'PNOA', // capa del WMS
-format: 'image/png', // tipo de formato
-transparent: true, // activa capa alfa/transparente
-attribution: ' <i>Imagen PNOA</i> &copy; IGN'
-});
-PNOA.addTo(mi_mapa); // añadir capa al mapa
-    
-</script>
+        </script>
 
+    </body>
 
-
-
-</body>
+</html>
