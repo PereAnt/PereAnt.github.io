@@ -78,13 +78,13 @@
             });
             
 
-            //cargar un WMS del mapa topográfico de Baleares
-            var topografico_5000 = L.tileLayer.wms('http://ideib.caib.es/pub_ideib/public/TOPOGRAFIC_5M_IB95/MapServer/WMSServer', {
-                layer:"" ,
-                format: 'image/png',
-                transparent: true,
-                attribution: '<i> Topográfico escala 5000 </i> &copy; SITIBSA ' 
-            });
+            //cargar un WMS del mapa topográfico de Baleares (quería meterlo pero el servicio está caído)
+            //var topografico_5000 = L.tileLayer.wms('http://ideib.caib.es/pub_ideib/public/TOPOGRAFIC_5M_IB95/MapServer/WMSServer', {
+                //layer:"" ,
+               // format: 'image/png',
+               // transparent: true,
+                //attribution: '<i> Topográfico escala 5000 </i> &copy; SITIBSA ' 
+            //});
             
             //cargo un WMS del catastro
             var catastro = L.tileLayer.wms('http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx', {
@@ -102,7 +102,7 @@
                     p > 25000  ? '#ef3b2c' :
                     p > 20000  ? '#fb6a4a' :
                     p > 10000  ? '#fc9272' :
-                    p > 5000  ? '#fcbba1' :
+                    p > 5000   ? '#fcbba1' :
                     p > 1000   ? '#fee0d2' :
                     p < 1000   ? '#fff5f0' :
                                 '#000000';
@@ -149,9 +149,9 @@
             
             
         
-        //Añadiendo controles
+            //Añadiendo controles
 
-      //La capas base
+            //La capas base
             var baseMaps = {              
             "OpenStreetMap": OSM_mapnik,
             "Mapa base sencillo": callejero,  // Defino mi mapa base         
@@ -159,7 +159,7 @@
             var overlayMaps = {           // A partir de aquí añado las diferentes capas del mapa
             "Modelo digital de elevaciones": MDE,
             "Ortofoto PNOA": PNOA, 
-            "Topográfico 5000": topografico_5000, //el servicio WMS de Baleares falla mucho
+            //"Topográfico 5000": topografico_5000, //el servicio WMS de Baleares falla mucho
             "Catastro": catastro, //IMPORTANTE: la capa del catastro aumenta el detalle a medidad que aumentamos el zoom
             "Pueblos de la zona": pueblos,     // la capa "grupo" de pueblos 
             "Población Municipios Mallorca": municipios, // la capa GeoJson
