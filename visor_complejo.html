@@ -6,15 +6,18 @@
         <title>Visor complejo - Práctica visualización online Máster TIG - Pere Antoni</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href= "w3.css">
-        <!-- enlace a CSS de Leaflet v. 1.6.0 en la cabecera -->
-        <link rel="stylesheet" href="LEAFLET/codigo/leaflet.css"/>
+        <!-- enlace a CSS de Leaflet y otros css -->
+        <link rel="stylesheet" href="LEAFLET/codigo/leaflet.css">
+        <link rel="stylesheet" href="LEAFLET/codigo/leaflet-measure.css">
 
-        <!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
+
+        <!-- enlace a JavaScript de Leaflet otros .js (justo tras CSS) -->
         <script src="LEAFLET/codigo/leaflet.js"></script> 
-        
+
         <!-- enlace a la capa GeoJson de municipios y del municipio buger solamente-->
         <script src="LAYERS/municipios_poblacion.js"></script>
         <script src="LAYERS/buger.js"></script>
+        
         
         <style>
             body {
@@ -31,6 +34,9 @@
     </head>
 
     <body>
+        <!--cargo el scrip para poder añadir un medidor-->
+        <script src="LEAFLET/codigo/leaflet-measure.js"></script>
+
         <div class= "w3-panel w3-light-gray w3-margin-left w3-margin-right"> 
             <h1 class="w3-center w3-wide w3-xlarge w3-text" style="text-shadow:1px 1px 0 #444">Visor creado por Pere A Matías Florit </h1>
         </div>                  <!--definimos la posicion y margenes del visor. He intentado mantener la estética y estilo la pagina principal-->
@@ -60,7 +66,7 @@
                 format: "image/png",
                 transparent: true, 
                 attribution: "<i> Modelo digital de elevaciones </i> &copy; IDEE"  
-            });
+            }).addTo(visor);
 
             // codigo para añadir PNOA
 
@@ -89,7 +95,7 @@
             });
 
             //cargamos los GeoJson
-            //GeoJson con la población de los municipios de mallorca
+            //GeoJson con la POBLACION DE LOS MUNICIPIOS de mallorca
             function Color(p) {            //antes de nada definimos con un función un color para cada rango de numero de habitantes
                 return p > 60000 ? '#99000d' : //la escala de color la he "creado" en la página Color Brewer
                     p > 30000  ? '#cb181d' :  
@@ -108,19 +114,27 @@
                     weight: 2,                                           //aunque ponga MAX_población son datos "normales" de población
                     opacity: 1,
                     color: "gray",
-                    fillOpacity: 1
+                    fillOpacity: 0.8,
+                    interactive: true,
                 };
             }
-            var municipios = L.geoJson(municipios, {style: estilo});  //ahora cuando creamos la variable hacemos la llamada al estilo creado
-                                                                        //así representamos datos de población
+            //ahora cuando creamos la variable hacemos la llamada al estilo creado
+            var municipios = L.geoJson(municipios, {
+                style: estilo,
+                onEachFeature: function (feature, layer) {  //ademas quiero añadir que al pulsar sobre el polígono salgan el nombre del municipio y los habitantes
+                    layer.bindPopup('<h1>'+feature.properties.MUNICIPI+'</h1><p>Población: '+feature.properties.MAX_poblacion+'</p>');
+                }
+                }).addTo(visor); // porque quiero que esta capa sea la activa al abrirse
+                    
+                                                          
             
-            //GeoJson con el municipio de Búger
+            //GeoJson con tan solo el municipio de Búger
             var buger_mun = L.geoJSON(buger_mun, {             
-                color: 'red',
-                weight: 1,             
+                color: 'white',
+                weight: 2,             
                 fillColor: 'white',        
-                fillOpacity: 0.3,         
-                }).addTo(visor); //solo habrá esta capa activa
+                fillOpacity: 0,         
+                }).addTo(visor).bindPopup('Esto es mi Pueblo'); //una pequeña etiqueta que salga al pulsar
 
             // añadimos marcadores de algunos asentamientos urbanos con un pequeño texto
             var buger = L.marker([39.76, 2.98]).bindPopup('Esto es Búger, mi pueblo.'),  //la segunda parte de estas lineas son el texto que aparece al clicar el marcador
@@ -165,8 +179,20 @@
             position: 'topleft'})  //la situamos en la esquina izquierda
             escala.addTo(visor);
 
+            //se añade un medidor de area y distancia al mapa, importante haber añdido el .js y css necesarios
             
-        
+            var measureControl = new L.Control.Measure({
+            position: 'bottomleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+            });
+
+            measureControl.addTo(visor);  //desconozco porque solo sale el recuadro en blanco sin nada que indique que es el medidor
+            
+            
+            
         </script>
         
     
