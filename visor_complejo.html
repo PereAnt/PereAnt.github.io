@@ -12,8 +12,9 @@
         <!-- enlace a JavaScript de Leaflet v. 1.6.0 (justo tras CSS) -->
         <script src="LEAFLET/codigo/leaflet.js"></script> 
         
-        <!-- enlace a la capa GeoJson de municipios-->
+        <!-- enlace a la capa GeoJson de municipios y del municipio buger solamente-->
         <script src="LAYERS/municipios_poblacion.js"></script>
+        <script src="LAYERS/buger.js"></script>
         
         <style>
             body {
@@ -32,36 +33,63 @@
     <body>
         <div class= "w3-panel w3-light-gray w3-margin-left w3-margin-right"> 
             <h1 class="w3-center w3-wide w3-xlarge w3-text" style="text-shadow:1px 1px 0 #444">Visor creado por Pere A Matías Florit </h1>
-        </div>
+        </div>                  <!--definimos la posicion y margenes del visor. He intentado mantener la estética y estilo la pagina principal-->
         <div id="mapa" style="width: 98%; height: 90%" class="w3-container w3-card w3-white w3-margin-left w3-margin-bottom w3-margin-top w3-margin-right w3-margin-left"></div>
         <script>
             // definimos el mapa como una variable y le ajustamos dónde lo queremos ver
-            var visor = L.map('mapa').setView([39.758872, 2.984116], 8);
+            var visor = L.map('mapa').setView([39.758872, 2.984116], 10);
             
             var OSM_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
+            maxZoom: 20,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
-             OSM_mapnik.addTo(visor);
+             
+
+            //quiero añadir un WMS que sea más simple como mapa base
+            var callejero = L.tileLayer.wms('https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS', {
+                layers: 'IGNBaseTodo-gris', //es la capa específica del WMS que se quiere añadir
+                format: 'image/png', // tipo de formato,
+                attribution: '<i>Mapa base. <a href = "https://www.ign.es/wms-inspire/ign-base/leyendas/ignbase_todo.png">Leyenda</a></i> &copy; IGN'
+            });                                             //enlazo una imagen de la leyenda, es una forma sencill de incluir este información
+            callejero.addTo(visor);  //este será el mapa base activo
+
+            //añadimos un MDE como capa alternativa
+
+            var MDE = L.tileLayer.wms('http://servicios.idee.es/wms-inspire/mdt?SERVICE=WMS&', {
+                layers: "relieve",
+                format: "image/png",
+                transparent: true, 
+                attribution: "<i> Modelo digital de elevaciones </i> &copy; IDEE"  
+            });
 
             // codigo para añadir PNOA
 
-            var PNOA = L.tileLayer.wms('http://www.idee.es/wms/PNOA/PNOA?', { //URL WMS
-            layers: 'PNOA', // capa del WMS
-            format: 'image/png', // tipo de formato
-            transparent: true, // activa capa alfa/transparente
+            var PNOA = L.tileLayer.wms('https://www.ign.es/wms-inspire/pnoa-ma?SERVICE=WMS&', { //URL WMS
+            layers: 'OI.OrthoimageCoverage', 
+            format: 'image/png', 
+            transparent: true, 
             attribution: ' <i>Imagen PNOA</i> &copy; IGN'
             });
-            PNOA.addTo(visor); // añadir capa al mapa
+            
 
+            //cargar un WMS del mapa topográfico de Baleares
             var topografico_5000 = L.tileLayer.wms('http://ideib.caib.es/pub_ideib/public/TOPOGRAFIC_5M_IB95/MapServer/WMSServer', {
+                layer:"" ,
                 format: 'image/png',
                 transparent: true,
                 attribution: '<i> Topográfico escala 5000 </i> &copy; SITIBSA ' 
             });
             
+            //cargo un WMS del catastro
+            var catastro = L.tileLayer.wms('http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx', {
+                layers: 'Catastro',
+                format: 'image/png',
+                transparent: true,
+                attribution: '<i>Catastro</i>'
+            });
 
-            //cargo un archivo GeoJson con la población de los municipios de mallorca
+            //cargamos los GeoJson
+            //GeoJson con la población de los municipios de mallorca
             function Color(p) {            //antes de nada definimos con un función un color para cada rango de numero de habitantes
                 return p > 60000 ? '#99000d' : //la escala de color la he "creado" en la página Color Brewer
                     p > 30000  ? '#cb181d' :  
@@ -86,7 +114,13 @@
             var municipios = L.geoJson(municipios, {style: estilo});  //ahora cuando creamos la variable hacemos la llamada al estilo creado
                                                                         //así representamos datos de población
             
-
+            //GeoJson con el municipio de Búger
+            var buger_mun = L.geoJSON(buger_mun, {             
+                color: 'red',
+                weight: 1,             
+                fillColor: 'white',        
+                fillOpacity: 0.3,         
+                }).addTo(visor); //solo habrá esta capa activa
 
             // añadimos marcadores de algunos asentamientos urbanos con un pequeño texto
             var buger = L.marker([39.76, 2.98]).bindPopup('Esto es Búger, mi pueblo.'),  //la segunda parte de estas lineas son el texto que aparece al clicar el marcador
@@ -104,27 +138,31 @@
         //Añadiendo controles
 
       //La capas base
-            var baseMaps = {                  
-            "OpenStreetMap": OSM_mapnik,  // Defino mi mapa base         
+            var baseMaps = {              
+            "OpenStreetMap": OSM_mapnik,
+            "Mapa base sencillo": callejero,  // Defino mi mapa base         
             };
             var overlayMaps = {           // A partir de aquí añado las diferentes capas del mapa
+            "Modelo digital de elevaciones": MDE,
             "Ortofoto PNOA": PNOA, 
             "Topográfico 5000": topografico_5000, //el servicio WMS de Baleares falla mucho
-            "Pueblos": pueblos,     // la capa "grupo" de pueblos 
+            "Catastro": catastro, //IMPORTANTE: la capa del catastro aumenta el detalle a medidad que aumentamos el zoom
+            "Pueblos de la zona": pueblos,     // la capa "grupo" de pueblos 
             "Población Municipios Mallorca": municipios, // la capa GeoJson
+            "Mi municipio: Búger": buger_mun
             
             };
             //Los controles
             var capas = L.control.layers(   // variable con control de capas
-            baseMaps,                     // añadiendo capas base
-            overlayMaps,                  // añadiendo capas
-            {collapsed:true});            // control NO desplegado
-            capas.addTo(visor);           // añadimos control de capas al mapa
+            baseMaps,                     // se añaden los mapa base
+            overlayMaps,                  // se añaden capas
+            {collapsed:true});            // esto hace que el control no esté desplegado
+            capas.addTo(visor);           // añadimos el control al mapa
 
-            //añadimos una escala y la situamos en la esquina izquierda
+            //añadimos una escala  
             var escala = L.control.scale({
-            imperial: false,
-            position: 'topleft'})
+            imperial: false, //para que no apareza en millas, no es necesario
+            position: 'topleft'})  //la situamos en la esquina izquierda
             escala.addTo(visor);
 
             
